@@ -2,7 +2,7 @@
 
 // Load packages that we need
 const c = require('commander');
-const p = require('puppeteer');
+const p = require('puppeteer-core');
 
 var args = {
   noSandbox: {
