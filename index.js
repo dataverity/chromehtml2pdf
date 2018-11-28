@@ -10,6 +10,17 @@ var args = {
     configName: 'noSandbox',
     desc: 'Disable chrome sandbox.'
   },
+  timeout: {
+    pass: false,
+    configName: 'timeout',
+    isInt: true,
+    desc: 'Specify a timeout (in milliseconds).  Defaults to 30 seconds, pass 0 to disable timeout.'
+  },
+  javascriptEnabled: {
+    pass: false,
+    configName: 'javascriptEnabled',
+    desc: 'Whether or not to enable JavaScript on the page.  Defaults to true.'
+  },
   out: {
     pass: true,
     configName: 'path',
@@ -115,6 +126,9 @@ c.action(function(file){
       if(obj.isFloat) {
         val = parseFloat(val);
       }
+      if(obj.isInt) {
+        val = parseInt(val);
+      }
       if(obj.isBool){
         val = (val=='1' || val.toLowerCase()=='true');
       }
@@ -162,7 +176,11 @@ c.action(function(file){
       }
       const browser = await p.launch(launchConfig);
       const page = await browser.newPage();
-      await page.goto(file, {waitUntil: 'networkidle0'},timeout:0});
+      page.setJavaScriptEnabled((config.javaScriptEnabled) ? config.javaScriptEnabled : true);
+      await page.goto(file, {
+        timeout: ((config.timeout) ? config.timeout : 0),
+        waitUntil: 'networkidle0',
+      });
       await page.pdf(config);
       await browser.close();
     }
