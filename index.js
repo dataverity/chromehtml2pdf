@@ -150,7 +150,7 @@ c.action(function(file){
 	    }
 	    const browser = await p.launch(launchConfig);
 	    const page = await browser.newPage();
-	    await page.goto(file, {waitUntil: 'networkidle0'});
+	    await page.goto(file, {waitUntil: 'networkidle0',timeout:0});
 	    await page.pdf(config);	
 	    await browser.close();
 	}
