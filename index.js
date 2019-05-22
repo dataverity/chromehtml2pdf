@@ -35,11 +35,11 @@ var args = {
     },
     width: {
 	pass: true,
-	desc: 'Paper width with units. Defaults to 8.5 inches.'
+	desc: 'Paper width with units. Defaults to 8.5in.'
     },
     height: {
 	pass: true,
-	desc: 'Paper height with units. Defaults to 11 inches.'
+	desc: 'Paper height with units. Defaults to 11in.'
     },
     format: {
 	pass: true,
@@ -56,16 +56,16 @@ var args = {
 	'A6: 4.13in x 5.83in\n'
     },
     marginTop: {
-	desc: 'Top margin in inches. Defaults to 1cm (~0.4 inches).'
+	desc: 'Top margin with units. Defaults to 1cm (~0.4 inches).'
     },
     marginBottom: {
-	desc: 'Bottom margin in inches. Defaults to 1cm (~0.4 inches).'
+	desc: 'Bottom margin with units. Defaults to 1cm (~0.4 inches).'
     },
     marginLeft: {
-	desc: 'Left margin in inches. Defaults to 1cm (~0.4 inches).'
+	desc: 'Left margin with units. Defaults to 1cm (~0.4 inches).'
     },
     marginRight: {
-	desc: 'Right margin in inches. Defaults to 1cm (~0.4 inches).'
+	desc: 'Right margin with units. Defaults to 1cm (~0.4 inches).'
     },
     pageRanges: {
 	pass: true,
@@ -77,11 +77,11 @@ var args = {
     },*/
     headerTemplate: {
 	pass: true,
-	desc: 'HTML template for the print header. Should be valid HTML markup with following classes used to inject printing values into them: - date - formatted print date - title - document title - url - document location - pageNumber - current page number - totalPages - total pages in the document For example, would generate span containing the title.'
+	desc: 'HTML template for the print header. Should be valid HTML markup with following classes used to inject printing values into them: date - formatted print date; title - document title; url - document location; pageNumber - current page number; totalPages - total pages in the document. For example, <span class="title"></span> would generate a span containing the title. Make sure margins are such that the header will fit on the page. You may also need to explicity use CSS to set the font-size.'
     },
     footerTemplate: {
 	pass: true,
-	desc: 'HTML template for the print footer. Should use the same format as the `headerTemplate`.'
+	desc: 'HTML template for the print footer. Should use the same format as the `headerTemplate`. See there for more information.'
     }/* not supported by puppeteer,    
     preferCSSPageSize: {
 	'Whether or not to prefer page size as defined by css. Defaults to false, in which case the content will be scaled to fit the paper size.'
