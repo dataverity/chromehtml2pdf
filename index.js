@@ -5,6 +5,11 @@ const c = require('commander');
 const p = require('puppeteer');
 
 var args = {
+    noSandbox: {
+	pass: true,
+	configName: 'noSandbox',
+	desc: 'Disable chrome sandbox.'
+    },
     out: {
 	pass: true,
 	configName: 'path',
@@ -144,6 +149,11 @@ c.action(function(file){
     (async () => {
 	try{
 	    var launchConfig = {};
+	    if (config.noSandbox) {        
+		console.log('Warning: running chrome without sandbox');
+		launchConfig.args = ['--no-sandbox', '--disable-setuid-sandbox'];
+	    }
+
 	    if(c.executablePath){
 		console.log('Using chrome executable: '+c.executablePath);
 		launchConfig.executablePath = c.executablePath;
