@@ -143,7 +143,7 @@ c.action(function(file){
     // Get the page to create the PDF.
     (async () => {
 	try{
-	    var launchConfig = {};
+	    var launchConfig = {args: ['--font-render-hinting=none']};
 	    if(c.executablePath){
 		console.log('Using chrome executable: '+c.executablePath);
 		launchConfig.executablePath = c.executablePath;
