@@ -85,7 +85,10 @@ var args = {
     }/* not supported by puppeteer,    
     preferCSSPageSize: {
 	'Whether or not to prefer page size as defined by css. Defaults to false, in which case the content will be scaled to fit the paper size.'
-    }*/
+    }*/,
+	delayBeforePrint: {
+		desc: 'Delay in milliseconds after page load. Use it if you need for your scripts to finish.',
+	}
 };
 
 c.arguments('<file>');
@@ -139,7 +142,13 @@ c.action(function(file){
 	console.log('marginLeft = '+c.marginLeft);
 	config.margin.left = c.marginLeft
     }
-        
+
+    function delay(time) {
+		return new Promise(function(resolve) {
+			setTimeout(resolve, time)
+		});
+	}
+
     // Get the page to create the PDF.
     (async () => {
 	try{
@@ -151,6 +160,14 @@ c.action(function(file){
 	    const browser = await p.launch(launchConfig);
 	    const page = await browser.newPage();
 	    await page.goto(file, {waitUntil: 'networkidle0',timeout:0});
+		if (c.delayBeforePrint) {
+			if (!isNaN(c.delayBeforePrint)) {
+				console.log("Waiting " + parseInt(c.delayBeforePrint).toString() + " milliseconds")
+				await delay(parseInt(c.delayBeforePrint))
+			} else {
+				console.log("Delay must be a integer number.")
+			}
+		}
 	    await page.pdf(config);	
 	    await browser.close();
 	}
